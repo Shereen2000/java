@@ -1,0 +1,109 @@
+A multithreaded program contains two or more parts that can run concurrently.
+
+Each part of such a program is called a thread.
+
+Each thread defines a separate path of execution.
+
+Thus multithreading is a specialized form of of multitasking.
+
+
+process based multitasking
+--------------------------
+
+    * A process is a program that is executing
+
+    * Thus process based multitasking is the feature that allows your computer to 
+        run two or more programs concurrently.
+
+    * For example, process based multitasking enables you to run the Java compiler 
+        at the same time that you are using a text editor or visiting a web site.
+
+    * In process-based multitasking, a program is the smallest unit of code that 
+        can be dispatched by the scheduler.
+
+
+
+thread based multitasking
+-------------------------
+
+    * In a thread-based multitasking environment, the thread is the smallest unit
+        of dispatchable code.
+
+    * This means that a single program can perform two or more tasks simultaneously.
+
+    * For instance, a text editor can format text at the same time that it is printing, 
+        as long as these two actions are being performed by two separate threads.
+
+
+Thus, process-based multitasking deals with the “big picture,” and thread-based multitasking 
+    handles the details.
+
+Multitasking threads require less overhead than multitasking processes. Processes are heavyweight
+    tasks that require their own separate address spaces.
+
+Interprocess communication is expensive and limited. Context switching from one process to another
+     is also costly.
+
+Threads, on the other hand, are lighter weight.
+
+They share the same address space and cooperatively share the same heavyweight process. 
+
+Interthread communication is inexpensive, and context switching from one thread to the next is 
+    lower in cost.
+
+While Java programs make use of process-based multitasking environments, process-based multitasking
+     is not under Java’s direct control. However, multithreaded multitasking is.
+
+
+Multithreading enables you to write efficient programs that make maximum use of the processing power
+     available in the system.
+
+One important way multithreading achieves this is by keeping idle time to a minimum.
+
+This is especially important for the interactive, networked environment in which Java operates
+     because idle time is common.
+
+For example, the transmission rate of data over a network is much slower than the rate at which the
+     computer can process it.
+
+Even local file system resources are read and written at a much slower pace than they can be processed
+    by the CPU.
+
+And, of course, user input is much slower than the computer.
+
+In a single-threaded environment, your program has to wait for each of these tasks to finish before 
+it can proceed to the next one—even though most of the time the program is idle, waiting for input.
+
+Multithreading helps you reduce this idle time because another thread can run when one is waiting.
+
+
+-----------------------------------------------------------------------------------------------------------------
+JAVA THREAD MODEL
+-----------------
+
+The Java run-time system depends on threads for many things, and all the class libraries are designed
+    with multithreading in mind. In fact, Java uses threads to enable the entire environment to be 
+    asynchronous. This helps reduce inefficiency by preventing the waste of CPU cycles.
+
+Threat Priorities
+-----------------
+
+Java assigns to each thread a priority that determines how that thread should be treated with respect
+     to the others.
+
+Thread priorities are integers that specify the relative priority of one thread to another.
+
+As an absolute value, a priority is meaningless; a higher-priority thread doesn’t run any faster than 
+    a lower priority thread if it is the only thread running. Instead, a thread’s priority is used to
+    decide when to switch from one running thread to the next. This is called a context switch.
+
+The rules that determine when a context switch takes place are simple:
+
+    A thread can voluntarily relinquish control. This occurs when explicitly yielding, sleeping, or 
+        when blocked. In this scenario, all other threads are examined, and the highest-priority thread 
+        that is ready to run is given the CPU.
+
+    A thread can be preempted by a higher-priority thread. In this case, a lower-priority thread that
+        does not yield the processor is simply preempted—no matter what it is doing—by a higher-priority
+        thread. Basically, as soon as a higher-priority thread wants to run, it does. This is called 
+        preemptive multitasking.

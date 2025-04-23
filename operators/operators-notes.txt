@@ -1,0 +1,15 @@
+This operators act upon the individual bits of their operands.
+
+~       Bitwise unary Not
+&       Bitwise AND
+|       Bitwise OR
+^       Bitwise exclusive OR
+>>      Shift right
+>>>     Shift right zero fill
+<<      Shift left
+&=      Bitwise And assignment
+|=      Bitwise OR assignment
+^=      Bitwise exclusive OR assignment
+>>=     Shift right assignement
+>>>=    Shift right zero fill assignment
+<<=     shift left assignment
