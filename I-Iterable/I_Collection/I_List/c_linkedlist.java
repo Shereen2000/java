@@ -1,40 +1,15 @@
-//DEALING WITH A --- LIST ---- INTERFACE
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection; // interface
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;  //interface
+import java.util.List;
 
-public class list_main {
-
+public class c_linkedlist {
+    
     public static void main(String[] args) {
 
-        Collection<String> collection = new ArrayList<>();
-
-        List<String> list = new ArrayList<>();
-
-        // collection = list;           // no compilation error
-        
-        // list = collection;            // compilation error
-
-        List<String> convertedList = new ArrayList<>(collection);  // to set a collection to a list you have to convert
-
-    
-        
-        /*Methods
-         * 
-         *  List specific methods not in collection
-         *      get(int index)
-         *      set(int index, E element)
-         *      add(int index. E elemet)
-         *      remove(int index)
-         *      indexOf(Object o)
-         *      LastIndexOf(Object o)
-         *      ListIterator()
-         *      sublist(index fromIndex, int toIndex)  
-         */
+        List<String> list = new LinkedList<>();
 
             //clear
             list.clear(); // removes all objects in a list
@@ -82,37 +57,12 @@ public class list_main {
             list.sort((a,b)-> b.length()-a.length()); //descending order
 
 
-            //sublits
+            //sublist
             List<String> sublist = list.subList(0,3); //from index 0 take 3 elements
             System.out.println("sublist of list: "+sublist);
 
-            
-
-
-
-            
-            
-
-
-
-
         
 
-            
-            
-
-
-
-        
-
-        
-            
-        
-
-            System.out.println(list);
-
-
-       
 
     }
 }

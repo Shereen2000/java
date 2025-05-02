@@ -107,3 +107,130 @@ The rules that determine when a context switch takes place are simple:
         does not yield the processor is simply preempted—no matter what it is doing—by a higher-priority
         thread. Basically, as soon as a higher-priority thread wants to run, it does. This is called 
         preemptive multitasking.
+
+In cases where two threads with the same priority are competing for CPU cycles,the
+    situation is a bit complicated. For some operating systems, threads of equal 
+    priority are time-sliced automatically in round-robin fashion. For other types
+    of operating systems, threads of equal priority must voluntarily yield control
+    to their peers. If they don’t, the other threads will not run.
+
+
+Synchronization
+---------------
+
+Why Java Uses Synchronization in Multithreading
+
+    * When a program has multiple threads running at the same time, they might try to use or change the 
+        same data.
+
+    * Without control, two threads might clash — like one reading data while the other is changing it.
+
+    * To stop this, Java uses something called a monitor (a kind of gatekeeper).
+
+What’s a Monitor?
+
+    * Think of a monitor like a tiny room that only one thread can enter at a time.
+
+    * If one thread is inside, the others have to wait their turn.
+
+    * This keeps shared data safe from being accessed at the same time by multiple threads.
+
+How Java Helps You Do This
+
+    * Every Java object has its own built-in monitor (you don’t need to create it yourself).
+
+    * If you mark a method as synchronized, only one thread can run it at a time for that object.
+
+    * Other threads must wait until the first thread is done with the method.
+
+Why It’s Useful
+
+    * Makes it easier to write safe code when using multiple threads.
+
+    * Keeps your program from doing weird or unexpected things due to thread conflicts.
+
+
+Messaging
+---------
+
+Messaging Between Threads in Java
+
+    * Once your program has multiple threads, they might need to talk to each other.
+
+    * In other programming languages, threads rely on the operating system to communicate — this can be slow or complicated.
+
+    * But Java makes it simple and lightweight for threads to communicate.
+
+🧵 How Threads Communicate in Java
+    
+    * A thread can enter a synchronized method (a special section of code where only one thread goes at a time).
+
+    * Once inside, the thread can wait — it pauses there.
+
+    * Another thread can then send a message to wake it up using special methods.
+
+📬 Java’s Built-In Messaging Methods
+
+    *Every Java object can use these methods:
+
+    * wait() – makes the thread pause and wait for a signal.
+
+    * notify() – sends a signal to wake up one waiting thread.
+
+    * notifyAll() – wakes up all waiting threads on that object.
+
+✅ Why This Matters
+
+    * Makes it easier to control how threads work together.
+
+    * Threads can take turns or react to each other in a safe and organized way.
+
+
+The Threat Class and the Runnable Interface
+-------------------------------------------
+🧵 Java’s Multithreading Basics
+
+    * Java uses threads to let parts of a program run at the same time.
+
+    * A thread is like a little task or process inside your program that runs independently.
+
+🚀 How Java Supports Threads
+    * Java’s multithreading is built on two things:
+
+    * The Thread class (used to create and control threads).
+
+    * The Runnable interface (used to define what a thread should do).
+
+🧍‍♂️ Thread = A Worker
+    * A Thread object represents a "proxy" or handle to the actual running task.
+
+    * You can’t directly grab the thread running in memory — but you can control it using the Thread object.
+
+🛠️ Two Ways to Create a Thread
+    * Extend the Thread class
+    * You make a class that extends Thread and override its run() method.
+
+Implement the Runnable interface
+
+    * You create a class that implements Runnable, then pass it to a Thread object.
+
+⚙️ Thread Class Has Helpful Methods
+
+    * Java provides many built-in methods to manage threads, like:
+
+        start() – starts the thread
+
+        run() – the code the thread will execute
+
+        sleep() – pause the thread for a while
+
+        join() – wait for a thread to finish
+
+        isAlive() – check if the thread is still running
+
+🧵 All Java Programs Start With One Thread
+
+    * Even if you don't create any threads, your Java program already runs on one called the main thread.
+
+    * You can create more threads to do things like loading data, downloading files, or responding to users — all at the same time!
+

@@ -1,0 +1,205 @@
+Exeptions are runtime errors
+
+Types of errors
+    Syntax errors (Managed  by compiler)
+    Logical errors (They pass through the compiler, but give wrong output)
+    Runtime errors
+
+Syntax and logical errors are the type of errors faced by the programmer
+
+Runtime errors are faced by users, runtime errors are also called exceptions
+
+Logical errors are solved using tracing and debugger
+
+Logical errors allow the program to run without crashing but give a wrong output
+
+ArithmeticException e => for mathematics errors
+ArrayIndexOutOfBoundsException => array passing length-1
+
+Multiple exception handling
+
+
+When to use a nested try catch instead of a sequential multiple try catch
+-------------------------------------------------------------------------
+
+Nested handling
+a-  When one risky operation depends on another.
+    You want to attempt the second operation if the first one succeeds
+
+b - You need fined-grained error handling inside a broader context.
+    Inner errors should be handled differently than outer ones.
+
+try {
+    // Outer operation
+    connectToDatabase();
+    
+    try {
+        // Inner operation that depends on DB connection
+        readDataFromTable();
+    } catch (DataReadException e) {
+        System.out.println("Problem reading data: " + e.getMessage());
+    }
+
+} catch (DatabaseConnectionException e) {
+    System.out.println("Database connection failed: " + e.getMessage());
+}
+
+
+Sequential handling
+
+a-  You have one risky operation that might throw different types of exceptions.
+
+b - You want to handler each exception type differently
+
+try {
+    // risky code that might throw multiple exceptions
+    readFileAndConnectDB();
+} catch (IOException e) {
+    System.out.println("File error: " + e.getMessage());
+} catch (SQLException e) {
+    System.out.println("Database error: " + e.getMessage());
+}
+
+---------------------------------------------------------------------------------
+Optional (finally block)
+
+The finally block gets excecuted everytime, whether there is an exception or no exception
+
+Used for clean up processes
+
+__________________________________________________________________________________
+
+Build in Exceptions in Java
+
+ Object
+   |
+   |
+Throwable
+   |_________________________________
+   |                                |
+Exception                          Error
+   |                              
+   |                             _
+   |- ClassNotFoundException      | 
+   |- ClassNotFoundException      |  
+   |- IOException                 | Checked Exceptions
+   |- InterruptedException        |
+   |- NumberFormatException      _|
+   |- RuntimeException           
+      |                                _
+      |- ArithmeticException            |     
+      |- IndexOutOfBoundsException      | Unchecked Exceptions
+      |- NullpointerException          _|
+
+We don't handle error as it is related to JVM and jvm handles it.
+
+
+Checked Exception
+    Its a must to handle this using try and catch if there is a possiblity of this 
+    exception.
+
+Unchecked Exception
+    if you want to handle it you can but you are nit forced but your program will crash
+
+______________________________________________________________________________________
+When dealing with nested exceptions, the outer try must handle the super exception like Exception e
+The nested try can handle the subclass like ArithmeticException
+
+
+_________________________________________________________________________________________
+Exception Class
+---------------
+
+String getMessage()  => e.getMessage()
+
+String ToString() => System.out.println(e) // if you just write e automatically the ToString method is excecuted
+
+void printStackTrace() => Traces the sequences of method calls when the sequence was raised 
+    => e.printStackTrace() => you don't have to use System.out.println()
+
+_____________________________________________________________________________________________
+User defined Exceptions
+------------------------
+
+User defined exceptions must extend the Exception Class
+
+class MinBalanceException extends Exception
+{
+    public String toString()
+    {
+        return "minimum balance must be 5000";
+    }
+}
+
+______________________________________________________________________________________________
+Throw vs Throws
+---------------
+
+    * if there is three methods, method 1, method 2 and method 3.
+    * method 1 calls method 2 and method 2 calls method 3. method 1 is called by main method.
+    * if there is logic in method 3 that throws an exception that that exception is not handled in method 3 
+        the exception handling will be forwarded to the calling method which should be method 2 and if method 2
+        still does not handle it, it  will be forwarded to method 1 and if method 1 does not handle it, it will
+        be forwarded to main method, should main method also fail to handle it, it will be forwarded to jVM and the
+        program will crash.
+
+    * When dealing with checked exception, the purpose of throw Exception is to throw the exception to the calling method
+      why don't try and handle the exception in the method we are throwing it. so int the signature line of the method of 
+      the method that throws the exception you indicate (throws Exception) to show that this method throws and exception that 
+      must be handled. The method "propagrates the exception to the calling method"
+
+    * If the main method also throws the Exception, the exception will be propagated to JVM and the program will crash.
+
+    **throw**
+         is used inside a method to actually throw an exception object, like throw new IOException("File not found").
+    **throws** 
+        is used in the method signature to declare that the method might throw certain exceptions, so the caller must handle or propagate them.
+
+_____________________________________________________________________________________________________
+Finally block
+-------------
+
+if a method is not handling catching an exception you need a finally block
+
+Used for unreachable statements
+
+    static void meth1() throws Exception
+    {
+        try
+        {
+            throw new Exception();
+        }
+        finally
+        {
+            System.out.println("final message"); //without the finally this would be a unreachable line
+        }
+    }
+
+
+_______________________________________________________________________________________________________________
+Try with Resources, new feature
+--------------------------------
+
+All things outsite the program (stack) are called resources (file, database, network), just like the heap.
+
+analogy
+------
+    if i am a student, many things are resources to me, and it i access them or take them, i must return them back
+        otherwise it looks like i am still using them.
+
+    For example when we want any new object in Heap we say "new", when we longer need we should delete.
+        thus such deletion are dealt with automatically by the garbase collector
+
+try(FileReader fr = new FileReader("mytxt"))
+{
+
+}// this way that resource will close automatically when the try is finished no need for finally block to close.
+
+All resources under the autoclosible interface will be closed by the try with resource.
+Any resource with a close method.
+
+
+
+
+
+

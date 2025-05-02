@@ -1,0 +1,20 @@
+      
+      // collection = list;           // no compilation error
+      // list = collection;            // compilation error
+
+       Collection<String> collection = new ArrayList<>();
+       List<String> convertedList = new ArrayList<>(collection);  // to set a collection to a list you have to convert
+
+      /*Methods
+         * 
+         *  List specific methods not in collection
+         *      get(int index)
+         *      set(int index, E element)
+         *      add(int index. E elemet)
+         *      remove(int index)
+         *      indexOf(Object o)
+         *      LastIndexOf(Object o)
+         *      ListIterator()
+         *      sublist(index fromIndex, int toIndex)  
+         */
+
