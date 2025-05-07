@@ -1,0 +1,23 @@
+current package = java.time  => introduced in 8
+before package = java.util
+_______________________________________________________________________________________
+
+Date in java is represented as a long number = millisecond
+
+starting time = 1 Jan 1970
+starting time = 1900
+
+______________________________________________________________________________________
+Joda Date and Time API
+    LocalDate
+    LocalTime
+    LocalDateTime
+
+the issue with the old date package is that it was storing date in milliseconds from 1 jan 1970
+the second issue is that it was storing both date and time in one object
+the third thing is the new class is mutable, we can set the date, after creating the date object we can
+    change it with the set method
+it represents time in seconds +  nano seconds from 1 jan 1970
+
+
+
